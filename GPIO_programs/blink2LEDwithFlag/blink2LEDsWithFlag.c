@@ -22,6 +22,7 @@ void app_main(void) {
         
         int btn_click_level = gpio_get_level(PIN12);
 
+        // Keep the LED high even after button release
         if(btn_click_level) {
             level_flag = !level_flag; 
             printf("flag\n %d",level_flag);
