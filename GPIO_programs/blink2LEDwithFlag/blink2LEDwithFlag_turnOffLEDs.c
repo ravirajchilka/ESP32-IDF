@@ -22,7 +22,7 @@ void app_main(void) {
 
         int btn_click_level = gpio_get_level(PIN12);
         
-        // Turn off LED as soon as release of the button
+        /* Turn off LED as soon as release of the button */
         gpio_set_level(PIN13,0);
         vTaskDelay(pdMS_TO_TICKS(200));
         gpio_set_level(PIN14,0);
