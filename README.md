@@ -1,2 +1,2 @@
-# Embedded Systems with ESP32-IDF
-Embedded Systems is an important skillset for Electronics Engineers. There are various types of microcontrollers and Single Board Computers avaialable in the market. The ESP32 is based on a dual cores SoC built for IoT based embedded systems applications. ESP32 is cheap and widely used in industrial IoT applications
+# What's Embedded Systems ?
+Embedded Systems design is an important skillset for Electronics Engineers. There are 2 ways to design and develop Embedded Systems one is by using small computers like microcontrollers or SBCs(Singl Board Computers) which generally requires knowledge of RTOS or Linux OS. Another way of doing it by building entire hardware with CMOS logic gates which needs knowledge of Hardware Description Languges like VHDL,Verilog or SystemVerilog. 
