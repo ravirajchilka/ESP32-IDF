@@ -1,0 +1,31 @@
+" GVim settings for Raspberry pi OS
+
+
+" Set theme and font properties
+colorscheme desert
+" set guifont=Fixedsys:h10:cANSI:qDRAFT
+
+" Enable the sign column
+set signcolumn=yes
+
+" Set the width of the number column (adjust the number as needed)
+set numberwidth=1
+
+" Set relative line numbers
+set relativenumber
+
+" Set tab width
+set softtabstop=4
+
+autocmd FileType cpp nnoremap <C-s> :w <CR> :call CloseExistingTerminal() <CR> :rightbelow vert term ++cols=50 <CR>cd Documents/EmbeddedSystems<CR> <CR> g++ -std=c++20 -O2 -Wall test.cpp -o test && ./test <CR> 
+
+function! CloseExistingTerminal()
+    " Loop through all buffers
+    for buf in range(1, bufnr('$'))
+        " Check if the buffer is a terminal
+        if getbufvar(buf, '&buftype') == 'terminal'
+            " Close the terminal buffer
+            execute 'bdelete! '.buf
+        endif
+    endfor
+endfunction
