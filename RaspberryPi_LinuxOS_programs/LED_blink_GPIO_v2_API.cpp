@@ -3,69 +3,69 @@ This new approach is more robust and is the preferred method for GPIO control on
 The code now directly interacts with the /dev/gpiochip0 device, which doesn't require manual exporting and unexporting of GPIO pins.
 Used ioctl calls to configure and control the GPIO pin, which is more efficient and less prone to timing issues.
 */
-#include <iostream>
+#include<iostream>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
 #include <linux/gpio.h>
 #include <sys/ioctl.h>
+#include <chrono>
+#include <thread>
 
-int fd;
+std::uint8_t fd;
 struct gpio_v2_line_request req;
 
-void initGPIO(const char* chipname, unsigned int offset) {
-    fd = open(chipname, O_RDWR);
-    if (fd < 0) {
-        std::cerr << "Failed to open GPIO chip" << std::endl;
+void init_GPIO(const char* fd_pathname, std::uint8_t offset) {
+    fd = open(fd_pathname, O_RDWR);
+    if(fd == -1) {
+        std::cerr << "failed to open the fd ";
         exit(1);
     }
 
-    memset(&req, 0, sizeof(req));
-    req.config.flags = GPIO_V2_LINE_FLAG_OUTPUT;
-    req.num_lines = 1;
-    req.offsets[0] = offset;
-    strncpy(req.consumer, "LED_Blink", sizeof(req.consumer) - 1);
+    // set gpio pin properties   
+     memset(&req, 0, sizeof(req));
+     req.config.flags = GPIO_V2_LINE_FLAG_OUTPUT;
+     req.num_lines = 1;
+     req.offsets[0] = offset;
+     strncpy(req.consumer, "led_blink", sizeof(req.consumer)-1);
 
-    if (ioctl(fd, GPIO_V2_GET_LINE_IOCTL, &req) < 0) {
-        std::cerr << "Failed to get GPIO line" << std::endl;
+     if(ioctl(fd,GPIO_V2_GET_LINE_IOCTL, &req) == -1) {
+        std::cerr << "Failed to get GPIO line";
         close(fd);
         exit(1);
-    }
+     }
 }
 
-void setValue(int value) {
+void set_GPIO_value(std::uint8_t value) {
     struct gpio_v2_line_values data;
-    memset(&data, 0, sizeof(data));
+    memset(&data,0,sizeof(data));
     data.mask = 1;
-    data.bits = value ? 1 : 0;
+    data.bits = value;
 
-    if (ioctl(req.fd, GPIO_V2_LINE_SET_VALUES_IOCTL, &data) < 0) {
-        std::cerr << "Failed to set GPIO value" << std::endl;
+    if(ioctl(req.fd,GPIO_V2_LINE_SET_VALUES_IOCTL,&data) == -1) {
+	    std::cerr << "Failed to set GPIO value using data object";
     }
 }
 
-void closeGPIO() {
+void close_GPIO_fd() {
     close(fd);
 }
 
 int main() {
-    // Replace "/dev/gpiochip0" with necessary GPIO chip device
-    
-    initGPIO("/dev/gpiochip0", 4);
 
-    std::cout << "LED Blinking. Press Ctrl+C to exit." << std::endl;
+    init_GPIO("/dev/gpiochip0",4);
+	
+    while(1) {
+        set_GPIO_value(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        set_GPIO_value(0);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+    }	
 
-    while (true) {
-        setValue(1);  
-        usleep(500000);  
-        setValue(0); 
-        usleep(500000);  
-    }
-
-    closeGPIO();
+    close_GPIO_fd();
     return 0;
-}
 
+}
 
 /* using C++ class */
 /*
