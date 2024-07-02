@@ -1,10 +1,6 @@
-" GVim settings for Raspberry pi OS
-
-
 " Set theme and font properties
 colorscheme desert
-" set guifont=Fixedsys:h10:cANSI:qDRAFT
-
+ 
 " Enable the sign column
 set signcolumn=yes
 
@@ -17,7 +13,11 @@ set relativenumber
 " Set tab width
 set softtabstop=4
 
-autocmd FileType cpp nnoremap <C-s> :w <CR> :call CloseExistingTerminal() <CR> :rightbelow vert term ++cols=50 <CR>cd Documents/EmbeddedSystems<CR> <CR> g++ -std=c++20 -O2 -Wall test.cpp -o test && ./test <CR> 
+" below line is for regular -o cpp file compilation
+" autocmd FileType cpp nnoremap <C-s> :w <CR> :call CloseExistingTerminal() <CR> :rightbelow vert term ++cols=50 <CR>cd Documents/EmbeddedSystems<CR> <CR> g++ -std=c++20 -O2 -Wall test.cpp -o test && ./test <CR> 
+
+" below line is used for gpio based file compilation
+autocmd FileType cpp nnoremap <C-s> :w <CR> :call CloseExistingTerminal() <CR> :rightbelow vert term ++cols=50 <CR>cd Documents/EmbeddedSystems<CR> <CR> g++ -o test test.cpp -lgpiod -lgpiodcxx && ./test <CR> 
 
 function! CloseExistingTerminal()
     " Loop through all buffers

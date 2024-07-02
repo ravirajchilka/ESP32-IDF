@@ -8,6 +8,11 @@
 #include <linux/gpio.h>
 #include <sys/ioctl.h>
 
+//gpio 17 as input from button
+//gpio 27 as input from button
+// gpio 22 yellow led positive
+// gpio 4 red led positive
+
 std::uint8_t fd;
 struct gpio_v2_line_request req_output, req_input;
 
