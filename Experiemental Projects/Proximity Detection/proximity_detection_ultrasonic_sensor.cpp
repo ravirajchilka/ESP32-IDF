@@ -42,9 +42,9 @@ int main() {
 	
 	// inner while loop is for processing recieved signal from 1st while loop
 	    while(1) {
-		 if(inLine.get_value()==1) {
+		 if(inLine.get_value()==1) { // when echo signal goes high start counting
 		    count++;	
-		 } else if (count > 0) {
+		 } else if (count > 0) { // once echo signal goes low then print the count, break loop to repeat
 		    std::cout<< count<<std::endl;
 		    if(count > 10) {
 			    ledLine.set_value(0);
