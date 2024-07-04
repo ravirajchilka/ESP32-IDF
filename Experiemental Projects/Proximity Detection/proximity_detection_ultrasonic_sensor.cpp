@@ -1,6 +1,8 @@
 /*
     The US sensor sends echo signals and receives it like Bats to detect the obstacles, we can find the distance of the obstacle by calculating the
-    time difference between signal sent and recieved. In this example I have'nt calculated the distance and kept it simple 
+    time difference between signal sent and recieved. In this example I have'nt calculated the distance and kept it simple. Watch the video added in
+    the same folder 
+
 */
 
 #include <iostream>
