@@ -1,8 +1,0 @@
-	steps
-		step 1: SDA pullled low and SCL pulled high then ADDR + WR/R bit sent and ACK recived which sent by ADS1115
-		step 2: 1st byte sent after step 1 is select and confiugre the destination register most probably conig Reg. and recives ACK 
-			here transimission ends by pulling singals high.
-		step 3: If no furether data sent after step 2 then write command changes currently selectd register 		
-			most porbably coversion Reg. to read from it.
-		step 4: Again ADDR + R is sent, asssuming that conversion Reg. is selected in previous step, final 2 bytes is Data read from ADS1115
-		step 5: End of transmission by pulling SDA high while SCL is high
