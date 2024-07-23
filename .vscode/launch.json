@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/DOCUMENTS/GitHub/Embedded-Systems/RaspberryPi_LinuxOS_programs",
-      "program": "d:/DOCUMENTS/GitHub/Embedded-Systems/RaspberryPi_LinuxOS_programs/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
